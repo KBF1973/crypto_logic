@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">crypto_logic</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="guess_the_mystery_word">Guess The Mystery Word!</string>
+    <string name="one_letter_at_a_time">One Letter at a Time</string>
+    <string name="welcome">Welcome!</string>
+
+    <string name="select">Select</string>
+    <string name="enter_a_letter_and_press_select">Enter a Letter and Press Select:</string>
+    <string name="text_here">Text Here</string>
+    <string name="mystery_word">Mystery Word:</string>
+    <string name="incorrect_guesses">Incorrect Guesses</string>
+    <string name="congrats_you_got_it">Congrats! You Got It!</string>
+
+
+</resources>
