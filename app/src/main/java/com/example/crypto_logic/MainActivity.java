@@ -19,16 +19,15 @@ import java.lang.*;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String> secretWords;
-    private ArrayList<String> splitWord;
     private String shuffledWord = "";
-    int correct_guesses = 0;
-    Button enter_text;
+    private String OriginalWord;
+    private String win;
+    private int correct_guesses;
+    private int incorrect_guesses;
     private EditText playersLetter;
     private TextView correctOrder;
-    private String OriginalWord;
-    private int incorrect_guesses = 0;
     private TextView showValue;
-    private String win = "Congrats! You Did It!";
+    protected Button enter_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         playersLetter = findViewById(R.id.playersLetter);
         correctOrder = findViewById(R.id.correctOrder);
         showValue = findViewById(R.id.incorrect);
+        correct_guesses = 0;
+        incorrect_guesses = 0;
+        win = "Congrats! You Did It!";
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                
             }
         });
 
@@ -60,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         Random ran = new Random();
         int word = ran.nextInt(secretWords.size());
         OriginalWord = secretWords.get(word);
-        splitWord = new ArrayList<>(Arrays.asList(secretWords.get(word).split("")));
+        ArrayList<String> splitWord = new ArrayList<>(Arrays.asList(secretWords.get(word).split("")));
 
         Collections.shuffle(splitWord);
         for (String c : splitWord)
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         }
     public void onButtonClick(View view) {
 
+
         //EditText cast to string
         String str = playersLetter.getText().toString().toLowerCase();
 
@@ -77,21 +81,25 @@ public class MainActivity extends AppCompatActivity {
         String str2 = OriginalWord.toLowerCase();
 
         //checking to see if the players letter matches OriginalWord one character at a time
-            if (str.charAt(0) == str2.charAt(correct_guesses)) {
-                correct_guesses++;
-                correctOrder.append(str.toUpperCase());
+        if (str.charAt(0) == str2.charAt(correct_guesses)) {
+            correct_guesses++;
+            correctOrder.append(str.toUpperCase());
+            playersLetter.getText().clear();
+
+
+            } else {
+                incorrect_guesses++;
+                showValue.setText(Integer.toString(incorrect_guesses));
                 playersLetter.getText().clear();
-
-             }
-
-             else{
-                 incorrect_guesses++;
-                 showValue.setText(Integer.toString(incorrect_guesses));
-                 playersLetter.getText().clear();
             }
 
+        for(int i = 0; i < OriginalWord.length(); i++ )
+            if(correctOrder.getText().toString().equals(OriginalWord)){
+                ((TextView) findViewById(R.id.winningMessage)).setText(win);
+            }
 
-    }
+        }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
